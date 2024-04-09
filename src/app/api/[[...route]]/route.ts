@@ -25,7 +25,7 @@ app.get("/hello", (c) => {
   return c.json({
     message: "Hello Next.js!",
     base_url: BASE_URL,
-    env: c?.env,
+    env: ENV,
   });
 });
 
@@ -44,7 +44,7 @@ app.get("/service", async (c) => {
     const test = await response.json();
     return c.json({
       message: "Hello Next.js!",
-      text: JSON.stringify(test),
+      text: test,
       env: ENV,
     });
   } catch (e) {
