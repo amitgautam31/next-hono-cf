@@ -29,6 +29,16 @@ app.get("/hello", (c) => {
   });
 });
 
+app.post("time", async (c) => {
+  const body = (await c.req.json()) as { time: string };
+  const time = parseInt(body?.time) || 0;
+  console.log(`running timeout for ${time} seconds`);
+
+  await wait(time * 1000);
+
+  return c.json({ message: `success after waiting for ${time} seconds` });
+});
+
 app.get("/service", async (c) => {
   const ENV = getRequestContext().env as Environment;
 
@@ -58,3 +68,5 @@ app.get("/service", async (c) => {
 
 export const GET = handle(app);
 export const POST = handle(app);
+
+const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
